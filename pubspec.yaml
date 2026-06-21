@@ -14,27 +14,6 @@ topics:
   - flutter
   - finance
 
-screenshots:
-  - description: 'Broker Distribution (dark) — equity transaction flows between brokers'
-    path: doc/screenshots/broker_dark.png
-  - description: 'Broker Distribution (light) — equity transaction flows between brokers'
-    path: doc/screenshots/broker_light.png
-  - description: 'Financing (dark) — lending sources vs loan purposes'
-    path: doc/screenshots/financing_dark.png
-  - description: 'Financing (light) — lending sources vs loan purposes'
-    path: doc/screenshots/financing_light.png
-  - description: 'E-Commerce Journey (dark) — 4-column: traffic source → category → payment → delivery'
-    path: doc/screenshots/ecommerce_dark.png
-  - description: 'E-Commerce Journey (light) — 4-column: traffic source → category → payment → delivery'
-    path: doc/screenshots/ecommerce_light.png
-  - description: 'Survey (dark) — generational media consumption by platform'
-    path: doc/screenshots/survey_dark.png
-  - description: 'Survey (light) — generational media consumption by platform'
-    path: doc/screenshots/survey_light.png
-  - description: 'Ekspor / Impor (dark) — Indonesian export commodities vs destination countries'
-    path: doc/screenshots/export_dark.png
-  - description: 'Ekspor / Impor (light) — Indonesian export commodities vs destination countries'
-    path: doc/screenshots/export_light.png
 environment:
   sdk: ">=3.0.0 <4.0.0"
   flutter: ">=3.10.0"
