@@ -23,18 +23,18 @@ class FinancingRepository implements SankeyRepository {
 
   static const _data = SankeyData(
     nodes: [
-      SankeyNode(id: 'b_bank',      label: 'Bank',            color: _colorBank,      type: SankeyNodeType.buyer,  subLabel: 'KPR · KKB · KTA'),
-      SankeyNode(id: 'b_koperasi',  label: 'Koperasi',        color: _colorKoperasi,  type: SankeyNodeType.buyer,  subLabel: 'Simpan Pinjam'),
-      SankeyNode(id: 'b_fintech',   label: 'Pinjol / P2P',    color: _colorFintech,   type: SankeyNodeType.buyer,  subLabel: 'Fintech Lending'),
-      SankeyNode(id: 'b_pegadaian', label: 'Pegadaian',       color: _colorPegadaian, type: SankeyNodeType.buyer,  subLabel: 'Gadai & Cicilan'),
-      SankeyNode(id: 'b_keluarga',  label: 'Keluarga/Teman',  color: _colorKeluarga,  type: SankeyNodeType.buyer,  subLabel: 'Pinjam Informal'),
-      SankeyNode(id: 's_rumah',      label: 'Beli Rumah',    color: _colorRumah,      type: SankeyNodeType.seller, subLabel: 'KPR & Properti'),
-      SankeyNode(id: 's_kendaraan',  label: 'Kendaraan',     color: _colorKendaraan,  type: SankeyNodeType.seller, subLabel: 'Motor & Mobil'),
-      SankeyNode(id: 's_usaha',      label: 'Modal Usaha',   color: _colorUsaha,      type: SankeyNodeType.seller, subLabel: 'UMKM & Wirausaha'),
-      SankeyNode(id: 's_pendidikan', label: 'Pendidikan',    color: _colorPendidikan, type: SankeyNodeType.seller, subLabel: 'Sekolah & Kuliah'),
-      SankeyNode(id: 's_renovasi',   label: 'Renovasi',      color: _colorRenovasi,   type: SankeyNodeType.seller, subLabel: 'Perbaikan Rumah'),
-      SankeyNode(id: 's_konsumsi',   label: 'Konsumsi',      color: _colorKonsumsi,   type: SankeyNodeType.seller, subLabel: 'Kebutuhan Harian'),
-      SankeyNode(id: 's_kesehatan',  label: 'Kesehatan',     color: _colorKesehatan,  type: SankeyNodeType.seller, subLabel: 'Biaya Medis'),
+      SankeyNode(id: 'b_bank',      label: 'Bank',            color: _colorBank,      type: SankeyNodeType.buyer,  subLabel: 'Mortgage · Auto · Personal'),
+      SankeyNode(id: 'b_koperasi',  label: 'Credit Union',    color: _colorKoperasi,  type: SankeyNodeType.buyer,  subLabel: 'Savings & Loans'),
+      SankeyNode(id: 'b_fintech',   label: 'Fintech / P2P',   color: _colorFintech,   type: SankeyNodeType.buyer,  subLabel: 'Fintech Lending'),
+      SankeyNode(id: 'b_pegadaian', label: 'Pawnshop',        color: _colorPegadaian, type: SankeyNodeType.buyer,  subLabel: 'Collateral & Installment'),
+      SankeyNode(id: 'b_keluarga',  label: 'Family / Friends',color: _colorKeluarga,  type: SankeyNodeType.buyer,  subLabel: 'Informal Lending'),
+      SankeyNode(id: 's_rumah',      label: 'Home Purchase',  color: _colorRumah,      type: SankeyNodeType.seller, subLabel: 'Mortgage & Property'),
+      SankeyNode(id: 's_kendaraan',  label: 'Vehicle',        color: _colorKendaraan,  type: SankeyNodeType.seller, subLabel: 'Motorcycle & Car'),
+      SankeyNode(id: 's_usaha',      label: 'Business Capital',color: _colorUsaha,     type: SankeyNodeType.seller, subLabel: 'SME & Entrepreneur'),
+      SankeyNode(id: 's_pendidikan', label: 'Education',      color: _colorPendidikan, type: SankeyNodeType.seller, subLabel: 'School & University'),
+      SankeyNode(id: 's_renovasi',   label: 'Renovation',     color: _colorRenovasi,   type: SankeyNodeType.seller, subLabel: 'Home Repair'),
+      SankeyNode(id: 's_konsumsi',   label: 'Consumption',    color: _colorKonsumsi,   type: SankeyNodeType.seller, subLabel: 'Daily Needs'),
+      SankeyNode(id: 's_kesehatan',  label: 'Healthcare',     color: _colorKesehatan,  type: SankeyNodeType.seller, subLabel: 'Medical Expenses'),
     ],
     links: [
       SankeyLink(sourceId: 'b_bank',      targetId: 's_rumah',      value: 8500),
@@ -68,16 +68,16 @@ class FinancingRepository implements SankeyRepository {
     await Future.delayed(const Duration(milliseconds: 350));
     return const SankeyChartConfig(
       data: _data,
-      subtitle: 'Dari mana orang meminjam → untuk apa pinjamannya (Miliar IDR)',
-      buyerLabel: 'Tempat Meminjam',
-      sellerLabel: 'Tujuan Pinjaman',
+      subtitle: 'Where people borrow → what they borrow for (Billion IDR)',
+      buyerLabel: 'Lender',
+      sellerLabel: 'Loan Purpose',
       height: 520,
       legendItems: [
         SankeyLegendItem(color: _colorBank,      label: 'Bank'),
-        SankeyLegendItem(color: _colorKoperasi,  label: 'Koperasi'),
-        SankeyLegendItem(color: _colorFintech,   label: 'Pinjol / P2P'),
-        SankeyLegendItem(color: _colorPegadaian, label: 'Pegadaian'),
-        SankeyLegendItem(color: _colorKeluarga,  label: 'Keluarga/Teman'),
+        SankeyLegendItem(color: _colorKoperasi,  label: 'Credit Union'),
+        SankeyLegendItem(color: _colorFintech,   label: 'Fintech / P2P'),
+        SankeyLegendItem(color: _colorPegadaian, label: 'Pawnshop'),
+        SankeyLegendItem(color: _colorKeluarga,  label: 'Family / Friends'),
       ],
     );
   }

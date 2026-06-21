@@ -7,14 +7,14 @@ import '../../../shared/models/sankey_chart_config.dart';
 class ApbnRepository implements SankeyRepository {
   const ApbnRepository();
 
-  // Column 0 · Sumber Penerimaan
+  // Column 0 · Revenue Sources
   static const _colPph        = Color(0xFF3B82F6);
   static const _colPpn        = Color(0xFF8B5CF6);
   static const _colCukai      = Color(0xFFF97316);
   static const _colPnbp       = Color(0xFF10B981);
   static const _colPembiayaan = Color(0xFFEF4444);
 
-  // Column 1 · Fungsi Belanja
+  // Column 1 · Spending Functions
   static const _colPendidikan = Color(0xFF34D399);
   static const _colInfra      = Color(0xFF60A5FA);
   static const _colKesehatan  = Color(0xFFEC4899);
@@ -23,7 +23,7 @@ class ApbnRepository implements SankeyRepository {
   static const _colTataKelola = Color(0xFFA78BFA);
   static const _colUtang      = Color(0xFFDC2626);
 
-  // Column 2 · Penerima Manfaat
+  // Column 2 · Beneficiaries
   static const _colMasyarakat = Color(0xFF22C55E);
   static const _colDaerah     = Color(0xFF0EA5E9);
   static const _colInfraNas   = Color(0xFF64748B);
@@ -32,31 +32,31 @@ class ApbnRepository implements SankeyRepository {
 
   static const _data = SankeyData(
     nodes: [
-      // Column 0 : Sumber Penerimaan
-      SankeyNode(id: 'rev_pph',   label: 'PPh',            color: _colPph,        column: 0, subLabel: 'Pajak Penghasilan'),
-      SankeyNode(id: 'rev_ppn',   label: 'PPN & PPnBM',    color: _colPpn,        column: 0, subLabel: 'Pajak Konsumsi'),
-      SankeyNode(id: 'rev_cukai', label: 'Cukai & Bea',    color: _colCukai,      column: 0, subLabel: 'Rokok, Alkohol, Impor'),
-      SankeyNode(id: 'rev_pnbp',  label: 'PNBP',           color: _colPnbp,       column: 0, subLabel: 'SDA, BUMN, BLU'),
-      SankeyNode(id: 'rev_pemb',  label: 'Pembiayaan',     color: _colPembiayaan, column: 0, subLabel: 'SBN & Pinjaman'),
+      // Column 0 : Revenue Sources
+      SankeyNode(id: 'rev_pph',   label: 'Income Tax',        color: _colPph,        column: 0, subLabel: 'Personal & Corporate'),
+      SankeyNode(id: 'rev_ppn',   label: 'Sales & Luxury Tax',color: _colPpn,        column: 0, subLabel: 'Consumption Tax'),
+      SankeyNode(id: 'rev_cukai', label: 'Excise & Customs',  color: _colCukai,      column: 0, subLabel: 'Tobacco, Alcohol, Imports'),
+      SankeyNode(id: 'rev_pnbp',  label: 'Non-Tax Revenue',   color: _colPnbp,       column: 0, subLabel: 'Resources, SOEs, BLU'),
+      SankeyNode(id: 'rev_pemb',  label: 'Deficit Financing', color: _colPembiayaan, column: 0, subLabel: 'Gov. Bonds & Loans'),
 
-      // Column 1 : Fungsi Belanja Negara
-      SankeyNode(id: 'fnc_pend',  label: 'Pendidikan',              color: _colPendidikan, column: 1, subLabel: 'Riset & Dikti'),
-      SankeyNode(id: 'fnc_infra', label: 'Infrastruktur',           color: _colInfra,      column: 1, subLabel: 'Energi & Konektivitas'),
-      SankeyNode(id: 'fnc_kes',   label: 'Kesehatan',               color: _colKesehatan,  column: 1, subLabel: 'JKN & Faskes'),
-      SankeyNode(id: 'fnc_sos',   label: 'Perlindungan Sosial',     color: _colPerlSos,    column: 1, subLabel: 'PKH, BLT, Sembako'),
-      SankeyNode(id: 'fnc_han',   label: 'Pertahanan & Keamanan',   color: _colPertHan,    column: 1, subLabel: 'TNI & Polri'),
-      SankeyNode(id: 'fnc_gov',   label: 'Tata Kelola',             color: _colTataKelola, column: 1, subLabel: 'Transfer Daerah & Birokrasi'),
-      SankeyNode(id: 'fnc_utang', label: 'Bayar Utang',             color: _colUtang,      column: 1, subLabel: 'Pokok & Bunga'),
+      // Column 1 : State Spending Functions
+      SankeyNode(id: 'fnc_pend',  label: 'Education',         color: _colPendidikan, column: 1, subLabel: 'Research & Higher Education'),
+      SankeyNode(id: 'fnc_infra', label: 'Infrastructure',    color: _colInfra,      column: 1, subLabel: 'Energy & Connectivity'),
+      SankeyNode(id: 'fnc_kes',   label: 'Healthcare',        color: _colKesehatan,  column: 1, subLabel: 'Health Insurance & Facilities'),
+      SankeyNode(id: 'fnc_sos',   label: 'Social Protection', color: _colPerlSos,    column: 1, subLabel: 'Family Aid, Cash Transfer, Food'),
+      SankeyNode(id: 'fnc_han',   label: 'Defense & Security',color: _colPertHan,    column: 1, subLabel: 'Military & Police'),
+      SankeyNode(id: 'fnc_gov',   label: 'Governance',        color: _colTataKelola, column: 1, subLabel: 'Regional Transfers & Bureaucracy'),
+      SankeyNode(id: 'fnc_utang', label: 'Debt Repayment',    color: _colUtang,      column: 1, subLabel: 'Principal & Interest'),
 
-      // Column 2 : Penerima Manfaat
-      SankeyNode(id: 'ben_mas', label: 'Masyarakat',            color: _colMasyarakat, column: 2, subLabel: 'Program Langsung'),
-      SankeyNode(id: 'ben_dae', label: 'Daerah & Desa',         color: _colDaerah,     column: 2, subLabel: 'DAU, DAK, Dana Desa'),
-      SankeyNode(id: 'ben_inf', label: 'Infrastruktur Nasional',color: _colInfraNas,   column: 2, subLabel: 'Jalan, Bendungan, Pelabuhan'),
-      SankeyNode(id: 'ben_apa', label: 'Aparatur Negara',       color: _colAparatur,   column: 2, subLabel: 'Gaji PNS, TNI & Polri'),
-      SankeyNode(id: 'ben_kew', label: 'Kewajiban Negara',      color: _colKewNeg,     column: 2, subLabel: 'Pembayaran Kreditur'),
+      // Column 2 : Beneficiaries
+      SankeyNode(id: 'ben_mas', label: 'Public',                color: _colMasyarakat, column: 2, subLabel: 'Direct Programs'),
+      SankeyNode(id: 'ben_dae', label: 'Regions & Villages',    color: _colDaerah,     column: 2, subLabel: 'Regional & Village Funds'),
+      SankeyNode(id: 'ben_inf', label: 'National Infrastructure',color: _colInfraNas,  column: 2, subLabel: 'Roads, Dams, Ports'),
+      SankeyNode(id: 'ben_apa', label: 'State Apparatus',       color: _colAparatur,   column: 2, subLabel: 'Civil Servant & Military Pay'),
+      SankeyNode(id: 'ben_kew', label: 'State Obligations',     color: _colKewNeg,     column: 2, subLabel: 'Creditor Payments'),
     ],
     links: [
-      // Sumber Penerimaan → Fungsi Belanja
+      // Revenue Sources → Spending Functions
       SankeyLink(sourceId: 'rev_pph',   targetId: 'fnc_pend',  value: 330),
       SankeyLink(sourceId: 'rev_pph',   targetId: 'fnc_infra', value: 200),
       SankeyLink(sourceId: 'rev_pph',   targetId: 'fnc_kes',   value:  80),
@@ -89,7 +89,7 @@ class ApbnRepository implements SankeyRepository {
       SankeyLink(sourceId: 'rev_pemb',  targetId: 'fnc_gov',   value:  40),
       SankeyLink(sourceId: 'rev_pemb',  targetId: 'fnc_utang', value: 360),
 
-      // Fungsi Belanja → Penerima Manfaat
+      // Spending Functions → Beneficiaries
       SankeyLink(sourceId: 'fnc_pend',  targetId: 'ben_mas', value: 330),
       SankeyLink(sourceId: 'fnc_pend',  targetId: 'ben_dae', value: 290),
       SankeyLink(sourceId: 'fnc_pend',  targetId: 'ben_apa', value:  40),
@@ -122,9 +122,9 @@ class ApbnRepository implements SankeyRepository {
     await Future.delayed(const Duration(milliseconds: 350));
     return const SankeyChartConfig(
       data: _data,
-      subtitle: 'Perkiraan APBN 2024 — dari Penerimaan hingga Penerima Manfaat  (Triliun IDR)',
-      buyerLabel: 'Sumber Penerimaan',
-      sellerLabel: 'Penerima Manfaat',
+      subtitle: 'Indonesia State Budget 2024 — from Revenue to Beneficiaries (Trillion IDR)',
+      buyerLabel: 'Revenue Sources',
+      sellerLabel: 'Beneficiaries',
       height: 600,
       style: SankeyStyle(
         nodeWidth: 9,
@@ -138,11 +138,11 @@ class ApbnRepository implements SankeyRepository {
         animationDuration: Duration(milliseconds: 700),
       ),
       legendItems: [
-        SankeyLegendItem(color: _colPph,        label: 'PPh'),
-        SankeyLegendItem(color: _colPpn,        label: 'PPN & PPnBM'),
-        SankeyLegendItem(color: _colCukai,      label: 'Cukai & Bea'),
-        SankeyLegendItem(color: _colPnbp,       label: 'PNBP'),
-        SankeyLegendItem(color: _colPembiayaan, label: 'Pembiayaan Defisit'),
+        SankeyLegendItem(color: _colPph,        label: 'Income Tax'),
+        SankeyLegendItem(color: _colPpn,        label: 'Sales & Luxury Tax'),
+        SankeyLegendItem(color: _colCukai,      label: 'Excise & Customs'),
+        SankeyLegendItem(color: _colPnbp,       label: 'Non-Tax Revenue'),
+        SankeyLegendItem(color: _colPembiayaan, label: 'Deficit Financing'),
       ],
     );
   }

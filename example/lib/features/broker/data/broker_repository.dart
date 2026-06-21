@@ -15,18 +15,18 @@ class BrokerRepository implements SankeyRepository {
     const buyers = [
       ('XL', _domestic, 'Domestic'), ('AK', _foreign, 'Foreign'),
       ('YP', _domestic, 'Domestic'), ('KK', _domestic, 'Domestic'),
-      ('CC', _bumn,     'BUMN'),     ('DR', _foreign,  'Foreign'),
+      ('CC', _bumn,     'State-Owned'),     ('DR', _foreign,  'Foreign'),
       ('PD', _domestic, 'Domestic'), ('ZP', _foreign,  'Foreign'),
       ('GR', _domestic, 'Domestic'), ('CP', _domestic, 'Domestic'),
-      ('NI', _bumn,     'BUMN'),
+      ('NI', _bumn,     'State-Owned'),
     ];
     const sellers = [
       ('AK', _foreign, 'Foreign'),   ('XL', _domestic, 'Domestic'),
-      ('YP', _domestic, 'Domestic'), ('CC', _bumn,     'BUMN'),
+      ('YP', _domestic, 'Domestic'), ('CC', _bumn,     'State-Owned'),
       ('KK', _domestic, 'Domestic'), ('GR', _domestic, 'Domestic'),
       ('PD', _domestic, 'Domestic'), ('DR', _foreign,  'Foreign'),
       ('ZP', _foreign,  'Foreign'),  ('CP', _domestic, 'Domestic'),
-      ('NI', _bumn,     'BUMN'),
+      ('NI', _bumn,     'State-Owned'),
     ];
     const links = [
       ('XL', 'AK', 62500.0), ('XL', 'XL', 24800.0), ('XL', 'CC', 11200.0),
@@ -74,7 +74,7 @@ class BrokerRepository implements SankeyRepository {
     await Future.delayed(const Duration(milliseconds: 350));
     return SankeyChartConfig(
       data: _buildData(),
-      subtitle: 'Aliran Transaksi Antar Broker (lot)',
+      subtitle: 'Inter-Broker Transaction Flow (lots)',
       buyerLabel: 'Buyer',
       sellerLabel: 'Seller',
       height: 620,
@@ -100,7 +100,7 @@ class BrokerRepository implements SankeyRepository {
       ),
       legendItems: const [
         SankeyLegendItem(color: _domestic, label: 'Domestic'),
-        SankeyLegendItem(color: _bumn,     label: 'BUMN'),
+        SankeyLegendItem(color: _bumn,     label: 'State-Owned'),
         SankeyLegendItem(color: _foreign,  label: 'Foreign'),
       ],
     );

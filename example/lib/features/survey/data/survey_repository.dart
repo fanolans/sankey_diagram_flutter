@@ -18,13 +18,13 @@ class SurveyRepository implements SankeyRepository {
       SankeyNode(id: 'b_mill', label: 'Millennial',  color: _mill, type: SankeyNodeType.buyer, subLabel: '1981–1996'),
       SankeyNode(id: 'b_genx', label: 'Gen X',       color: _genx, type: SankeyNodeType.buyer, subLabel: '1965–1980'),
       SankeyNode(id: 'b_boom', label: 'Boomer',      color: _boom, type: SankeyNodeType.buyer, subLabel: '1946–1964'),
-      SankeyNode(id: 's_yt',   label: 'YouTube',   color: Color(0xFFEF4444), type: SankeyNodeType.seller, subLabel: 'Video Panjang'),
-      SankeyNode(id: 's_ig',   label: 'Instagram', color: Color(0xFFE879F9), type: SankeyNodeType.seller, subLabel: 'Foto & Reels'),
+      SankeyNode(id: 's_yt',   label: 'YouTube',   color: Color(0xFFEF4444), type: SankeyNodeType.seller, subLabel: 'Long-form Video'),
+      SankeyNode(id: 's_ig',   label: 'Instagram', color: Color(0xFFE879F9), type: SankeyNodeType.seller, subLabel: 'Photos & Reels'),
       SankeyNode(id: 's_nf',   label: 'Netflix',   color: Color(0xFFB91C1C), type: SankeyNodeType.seller, subLabel: 'Streaming'),
-      SankeyNode(id: 's_tt',   label: 'TikTok',    color: Color(0xFF06B6D4), type: SankeyNodeType.seller, subLabel: 'Video Pendek'),
-      SankeyNode(id: 's_fb',   label: 'Facebook',  color: Color(0xFF2563EB), type: SankeyNodeType.seller, subLabel: 'Sosial & Grup'),
-      SankeyNode(id: 's_news', label: 'Berita',    color: Color(0xFF78716C), type: SankeyNodeType.seller, subLabel: 'Portal Online'),
-      SankeyNode(id: 's_tw',   label: 'Twitter/X', color: Color(0xFF38BDF8), type: SankeyNodeType.seller, subLabel: 'Mikroblog'),
+      SankeyNode(id: 's_tt',   label: 'TikTok',    color: Color(0xFF06B6D4), type: SankeyNodeType.seller, subLabel: 'Short-form Video'),
+      SankeyNode(id: 's_fb',   label: 'Facebook',  color: Color(0xFF2563EB), type: SankeyNodeType.seller, subLabel: 'Social & Groups'),
+      SankeyNode(id: 's_news', label: 'News',      color: Color(0xFF78716C), type: SankeyNodeType.seller, subLabel: 'Online Portal'),
+      SankeyNode(id: 's_tw',   label: 'Twitter/X', color: Color(0xFF38BDF8), type: SankeyNodeType.seller, subLabel: 'Microblog'),
     ],
     links: [
       SankeyLink(sourceId: 'b_genz', targetId: 's_tt',   value: 9000),
@@ -56,8 +56,8 @@ class SurveyRepository implements SankeyRepository {
     await Future.delayed(const Duration(milliseconds: 350));
     return const SankeyChartConfig(
       data: _data,
-      subtitle: 'Konsumsi Platform Digital per Generasi (jam/minggu)',
-      buyerLabel: 'Generasi',
+      subtitle: 'Digital Platform Usage by Generation (hours/week)',
+      buyerLabel: 'Generation',
       sellerLabel: 'Platform',
       height: 460,
       legendItems: [

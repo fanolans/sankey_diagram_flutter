@@ -30,26 +30,26 @@ class EnergyRepository implements SankeyRepository {
 
   static const _data = SankeyData(
     nodes: [
-      // Sumber Energi Primer — kolom ditentukan otomatis oleh BFS
-      SankeyNode(id: 'solar',    label: 'Solar',    color: _solar,    subLabel: 'PLTS'),
-      SankeyNode(id: 'angin',    label: 'Angin',    color: _angin,    subLabel: 'PLTB'),
-      SankeyNode(id: 'batubara', label: 'Batubara', color: _batubara, subLabel: 'PLTU'),
-      SankeyNode(id: 'gas',      label: 'Gas Alam', color: _gas,      subLabel: 'PLTG'),
-      SankeyNode(id: 'hydro',    label: 'Air',      color: _hydro,    subLabel: 'PLTA'),
+      // Primary energy sources — columns assigned automatically by BFS
+      SankeyNode(id: 'solar',    label: 'Solar',        color: _solar,    subLabel: 'Solar PV'),
+      SankeyNode(id: 'angin',    label: 'Wind',         color: _angin,    subLabel: 'Wind Farm'),
+      SankeyNode(id: 'batubara', label: 'Coal',         color: _batubara, subLabel: 'Coal Plant'),
+      SankeyNode(id: 'gas',      label: 'Natural Gas',  color: _gas,      subLabel: 'Gas Turbine'),
+      SankeyNode(id: 'hydro',    label: 'Hydro',        color: _hydro,    subLabel: 'Hydro Plant'),
 
-      // Energi Sekunder
-      SankeyNode(id: 'listrik', label: 'Listrik',    color: _listrik, subLabel: 'Grid PLN'),
-      SankeyNode(id: 'panas',   label: 'Energi Panas', color: _panas, subLabel: 'Steam'),
-      SankeyNode(id: 'bbm',     label: 'BBM',        color: _bbm,    subLabel: 'Kilang'),
+      // Secondary energy
+      SankeyNode(id: 'listrik', label: 'Electricity', color: _listrik, subLabel: 'Power Grid'),
+      SankeyNode(id: 'panas',   label: 'Heat',        color: _panas,   subLabel: 'Steam'),
+      SankeyNode(id: 'bbm',     label: 'Fuel Oil',    color: _bbm,     subLabel: 'Refinery'),
 
-      // Pengguna Akhir
-      SankeyNode(id: 'industri',  label: 'Industri',      color: _industri,  subLabel: 'Manufaktur'),
-      SankeyNode(id: 'rumah',     label: 'Rumah Tangga',  color: _rumah,     subLabel: 'Residensial'),
-      SankeyNode(id: 'transport', label: 'Transportasi',  color: _transport, subLabel: 'Darat & Udara'),
-      SankeyNode(id: 'komersial', label: 'Komersial',     color: _komersial, subLabel: 'Gedung & Mal'),
+      // End consumers
+      SankeyNode(id: 'industri',  label: 'Industry',    color: _industri,  subLabel: 'Manufacturing'),
+      SankeyNode(id: 'rumah',     label: 'Households',  color: _rumah,     subLabel: 'Residential'),
+      SankeyNode(id: 'transport', label: 'Transport',   color: _transport, subLabel: 'Road & Air'),
+      SankeyNode(id: 'komersial', label: 'Commercial',  color: _komersial, subLabel: 'Buildings & Malls'),
     ],
     links: [
-      // Sumber → Energi Sekunder
+      // Primary sources → Secondary energy
       SankeyLink(sourceId: 'solar',    targetId: 'listrik', value: 18000),
       SankeyLink(sourceId: 'angin',    targetId: 'listrik', value: 10000),
       SankeyLink(sourceId: 'batubara', targetId: 'listrik', value: 52000),
@@ -59,7 +59,7 @@ class EnergyRepository implements SankeyRepository {
       SankeyLink(sourceId: 'gas',      targetId: 'bbm',     value:  8000),
       SankeyLink(sourceId: 'hydro',    targetId: 'listrik', value: 22000),
 
-      // Energi Sekunder → Pengguna Akhir
+      // Secondary energy → End consumers
       SankeyLink(sourceId: 'listrik', targetId: 'industri',  value: 52000),
       SankeyLink(sourceId: 'listrik', targetId: 'rumah',     value: 36000),
       SankeyLink(sourceId: 'listrik', targetId: 'komersial', value: 22000),
@@ -68,7 +68,7 @@ class EnergyRepository implements SankeyRepository {
       SankeyLink(sourceId: 'panas',   targetId: 'komersial', value:  4000),
       SankeyLink(sourceId: 'bbm',     targetId: 'transport', value:  8000),
 
-      // Circular link: industri → listrik (cogeneration — sisa energi dikembalikan ke grid)
+      // Circular link: industri → listrik (cogeneration — surplus electricity fed back to the grid)
       SankeyLink(sourceId: 'industri', targetId: 'listrik', value: 6000),
     ],
   );
@@ -78,9 +78,9 @@ class EnergyRepository implements SankeyRepository {
     await Future.delayed(const Duration(milliseconds: 350));
     return const SankeyChartConfig(
       data: _data,
-      subtitle: 'Aliran Energi Nasional — kolom & posisi dihitung otomatis dari topologi link (TWh)',
-      buyerLabel: 'Sumber',
-      sellerLabel: 'Pengguna',
+      subtitle: 'National Energy Flow — columns & positions auto-computed from link topology (TWh)',
+      buyerLabel: 'Sources',
+      sellerLabel: 'Consumers',
       height: 560,
       style: SankeyStyle(
         autoLayout: true,
@@ -97,10 +97,10 @@ class EnergyRepository implements SankeyRepository {
       ),
       legendItems: [
         SankeyLegendItem(color: _solar,    label: 'Solar'),
-        SankeyLegendItem(color: _angin,    label: 'Angin'),
-        SankeyLegendItem(color: _batubara, label: 'Batubara'),
-        SankeyLegendItem(color: _gas,      label: 'Gas Alam'),
-        SankeyLegendItem(color: _hydro,    label: 'Air'),
+        SankeyLegendItem(color: _angin,    label: 'Wind'),
+        SankeyLegendItem(color: _batubara, label: 'Coal'),
+        SankeyLegendItem(color: _gas,      label: 'Natural Gas'),
+        SankeyLegendItem(color: _hydro,    label: 'Hydro'),
       ],
     );
   }
