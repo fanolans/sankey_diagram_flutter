@@ -162,25 +162,42 @@ class SankeyLayout {
   }
 
   /// Derives column indices from link topology using BFS (longest-path depth).
+  ///
+  /// Cyclic links (back edges) are stripped before BFS so the queue is always
+  /// finite. [_computeLinks] re-detects them as [LayoutLink.isCircular] links.
   static Map<String, int> _assignColumnsAuto(
       SankeyData data, NodeAlignment alignment) {
-    final outgoing = <String, List<String>>{};
-    final incoming = <String, List<String>>{};
-
+    // Build full adjacency first (needed for back-edge detection)
+    final fullOut = <String, List<String>>{};
     for (final node in data.nodes) {
-      outgoing[node.id] = [];
-      incoming[node.id] = [];
+      fullOut[node.id] = [];
     }
     for (final link in data.links) {
-      outgoing[link.sourceId]?.add(link.targetId);
-      incoming[link.targetId]?.add(link.sourceId);
+      fullOut[link.sourceId]?.add(link.targetId);
+    }
+
+    // Strip back edges so BFS on the remaining DAG always terminates
+    final backEdges = _detectBackEdges(data.nodes, fullOut);
+
+    final dagOut = <String, List<String>>{};
+    final dagIn  = <String, List<String>>{};
+    for (final node in data.nodes) {
+      dagOut[node.id] = [];
+      dagIn[node.id]  = [];
+    }
+    for (final link in data.links) {
+      final key = '${link.sourceId}>${link.targetId}';
+      if (!backEdges.contains(key)) {
+        dagOut[link.sourceId]?.add(link.targetId);
+        dagIn[link.targetId]?.add(link.sourceId);
+      }
     }
 
     final columns = <String, int>{};
-    final queue = <String>[];
+    final queue   = <String>[];
 
     for (final node in data.nodes) {
-      if ((incoming[node.id] ?? []).isEmpty) {
+      if ((dagIn[node.id] ?? []).isEmpty) {
         columns[node.id] = 0;
         queue.add(node.id);
       }
@@ -193,15 +210,14 @@ class SankeyLayout {
       }
     }
 
-    // BFS: longest-path depth so each node gets its rightmost valid column
+    // BFS longest-path — safe on a DAG (each node column only ever increases)
     var head = 0;
     while (head < queue.length) {
-      final id = queue[head++];
+      final id  = queue[head++];
       final col = columns[id] ?? 0;
-      for (final targetId in outgoing[id] ?? []) {
+      for (final targetId in dagOut[id] ?? []) {
         final candidate = col + 1;
-        if (!columns.containsKey(targetId) ||
-            columns[targetId]! < candidate) {
+        if (!columns.containsKey(targetId) || columns[targetId]! < candidate) {
           columns[targetId] = candidate;
           queue.add(targetId);
         }
@@ -218,7 +234,7 @@ class SankeyLayout {
     if (alignment == NodeAlignment.justify ||
         alignment == NodeAlignment.right) {
       for (final node in data.nodes) {
-        if ((outgoing[node.id] ?? []).isEmpty) {
+        if ((dagOut[node.id] ?? []).isEmpty) {
           columns[node.id] = maxCol;
         }
       }
@@ -228,7 +244,7 @@ class SankeyLayout {
       final reverseDepth = <String, int>{};
       final rQueue = <String>[];
       for (final node in data.nodes) {
-        if ((outgoing[node.id] ?? []).isEmpty) {
+        if ((dagOut[node.id] ?? []).isEmpty) {
           reverseDepth[node.id] = 0;
           rQueue.add(node.id);
         }
@@ -236,8 +252,8 @@ class SankeyLayout {
       var rHead = 0;
       while (rHead < rQueue.length) {
         final id = rQueue[rHead++];
-        final d = reverseDepth[id] ?? 0;
-        for (final srcId in incoming[id] ?? []) {
+        final d  = reverseDepth[id] ?? 0;
+        for (final srcId in dagIn[id] ?? []) {
           final candidate = d + 1;
           if (!reverseDepth.containsKey(srcId) ||
               reverseDepth[srcId]! < candidate) {
@@ -257,6 +273,47 @@ class SankeyLayout {
     }
 
     return columns;
+  }
+
+  /// Iterative DFS that returns a set of `"sourceId>targetId"` keys for every
+  /// back edge (an edge whose target is already on the current DFS stack).
+  /// Stripping these edges makes the graph acyclic so BFS terminates.
+  static Set<String> _detectBackEdges(
+    List<SankeyNode> nodes,
+    Map<String, List<String>> outgoing,
+  ) {
+    final backEdges = <String>{};
+    // 0 = unvisited, 1 = on stack, 2 = done
+    final state = <String, int>{};
+
+    for (final node in nodes) {
+      if (state.containsKey(node.id)) continue;
+
+      final stack = <(String, int)>[];
+      stack.add((node.id, 0));
+      state[node.id] = 1;
+
+      while (stack.isNotEmpty) {
+        final (id, idx) = stack.last;
+        final children = outgoing[id] ?? [];
+
+        if (idx >= children.length) {
+          stack.removeLast();
+          state[id] = 2;
+        } else {
+          stack[stack.length - 1] = (id, idx + 1);
+          final childId = children[idx];
+          if (state[childId] == 1) {
+            backEdges.add('$id>$childId');
+          } else if (!state.containsKey(childId)) {
+            state[childId] = 1;
+            stack.add((childId, 0));
+          }
+        }
+      }
+    }
+
+    return backEdges;
   }
 
   static void _relaxNodes({
