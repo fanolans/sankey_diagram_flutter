@@ -172,6 +172,38 @@ SankeyNode(id: 'mid', label: 'Middle',  color: ..., type: SankeyNodeType.neutral
 SankeyNode(id: 'dst', label: 'Dest',    color: ..., type: SankeyNodeType.seller)
 ```
 
+### Auto-layout (topology-driven)
+
+Set `autoLayout: true` on `SankeyStyle` to derive column positions directly from
+link topology via BFS, instead of `SankeyNodeType` or `column`. Node vertical
+positions are then refined with iterative relaxation (like d3-sankey) to
+minimise link crossings. `SankeyNode.column` and `SankeyNode.type` are ignored
+in this mode.
+
+```dart
+SankeyDiagram(
+  data: data,
+  style: const SankeyStyle(
+    autoLayout: true,
+    layoutIterations: 6,
+    nodeAlignment: NodeAlignment.justify,
+  ),
+)
+```
+
+`NodeAlignment` controls how source/sink nodes are placed:
+
+| Value | Behaviour |
+|---|---|
+| `left` | Source nodes at column 0; columns increase by link depth |
+| `right` | Sink nodes at the rightmost column; columns propagate right to left |
+| `center` | Nodes positioned at the midpoint of forward/reverse depth |
+| `justify` | Like `left`, but also pushes sink nodes to the rightmost column (default — matches d3-sankey) |
+
+Backward flows (where a link's source column is at or after its target
+column — e.g. a feedback loop) are automatically detected and rendered as
+upward arcs instead of the usual Bézier ribbon.
+
 ### Explicit column placement (4+ columns)
 
 Set `column` on each node to place them in any column. This unlocks diagrams
@@ -240,6 +272,9 @@ SankeyDiagram(
 | `backgroundColor` | `Color` | `transparent` | Canvas background colour |
 | `horizontalPadding` | `double` | `0.0` | Padding added on both horizontal edges |
 | `verticalPadding` | `double` | `0.0` | Padding added on both vertical edges |
+| `autoLayout` | `bool` | `false` | Derive columns from link topology via BFS instead of `type`/`column` |
+| `layoutIterations` | `int` | `6` | Relaxation passes run when `autoLayout` is `true` |
+| `nodeAlignment` | `NodeAlignment` | `justify` | Source/sink placement strategy during auto-layout: `left`, `right`, `center`, or `justify` |
 
 ### Tooltip style
 
