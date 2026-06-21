@@ -1,0 +1,11 @@
+# Build artifacts — never publish
+build/
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# OS metadata
+.DS_Store
+Thumbs.db

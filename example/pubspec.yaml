@@ -1,0 +1,20 @@
+name: sankey_diagram_flutter_example
+description: Demo application for the sankey_diagram_flutter package.
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  sankey_diagram_flutter:
+    path: ../
+  flutter_bloc: ^8.1.6
+  equatable: ^2.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
