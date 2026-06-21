@@ -8,7 +8,8 @@ A highly customizable Sankey diagram widget for Flutter. Visualize flow-based da
 - **Animated entry** with a configurable duration and easing curve
 - **Interactive** — tap nodes or links to select, hover to highlight related flows
 - **Tooltip** shown on tap, with a built-in default style or a fully custom builder
-- **Automatic layout** driven by node type (`buyer` → left, `neutral` → middle, `seller` → right)
+- **Automatic layout** driven by node type (`buyer` → left, `neutral` → middle, `seller` → right), or fully topology-driven via BFS longest-path (`autoLayout: true`)
+- **Circular link support** — backward flows rendered as upward arcs, with automatic detection
 - **Node sorting** by value, by label, or in insertion order
 - **Legend** with four position options (top / bottom / left / right) or hidden; supports tap-to-highlight
 - **Programmatic control** via `SankeyController` — highlight nodes from external UI
@@ -45,7 +46,7 @@ A highly customizable Sankey diagram widget for Flutter. Visualize flow-based da
     <td><img src="doc/screenshots/survey_light.png" width="240"/></td>
   </tr>
   <tr>
-    <td><b>Ekspor / Impor</b><br/>2 columns</td>
+    <td><b>Export / Import</b><br/>2 columns</td>
     <td><img src="doc/screenshots/export_dark.png" width="240"/></td>
     <td><img src="doc/screenshots/export_light.png" width="240"/></td>
   </tr>
@@ -54,13 +55,18 @@ A highly customizable Sankey diagram widget for Flutter. Visualize flow-based da
     <td><img src="doc/screenshots/apbn_dark.png" width="240"/></td>
     <td><img src="doc/screenshots/apbn_light.png" width="240"/></td>
   </tr>
+  <tr>
+    <td><b>Auto Layout</b><br/>topology-driven + circular link</td>
+    <td><img src="doc/screenshots/auto_layout_dark.png" width="240"/></td>
+    <td><img src="doc/screenshots/auto_layout_light.png" width="240"/></td>
+  </tr>
 </table>
 
 ## Installation
 
 ```yaml
 dependencies:
-  sankey_diagram_flutter: ^1.0.0
+  sankey_diagram_flutter: ^1.1.0
 ```
 
 Then run:
@@ -487,7 +493,7 @@ The widget uses `CustomPainter` and standard Flutter gesture detectors with no p
 
 ## Example app
 
-The `example/` directory contains a full demo with six real-world datasets:
+The `example/` directory contains a full demo with seven real-world datasets:
 
 - **Broker Distribution** — equity transaction flows between brokers (2 columns)
 - **Financing** — lending sources vs. loan purposes (2 columns)
@@ -495,6 +501,7 @@ The `example/` directory contains a full demo with six real-world datasets:
 - **Survey** — generational media consumption by platform (2 columns)
 - **Export / Import** — Indonesian export commodities vs. destination countries (2 columns)
 - **APBN 2024** — 3-column Indonesian state budget: revenue sources → spending functions → beneficiaries (~Rp 3.000 T)
+- **Auto Layout** — national energy flow with topology-driven column placement (BFS) and a circular link representing industrial cogeneration
 
 Run it with:
 
