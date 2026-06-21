@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/sankey_node.dart';
 import '../models/sankey_style.dart';
 
+/// A single colour + label entry in the diagram legend.
 class SankeyLegendItem {
   const SankeyLegendItem({required this.color, required this.label});
 
@@ -10,6 +11,8 @@ class SankeyLegendItem {
   final String label;
 }
 
+/// Renders a horizontal wrap of [SankeyLegendItem] chips below (or around)
+/// the diagram. Normally managed internally by [SankeyDiagram].
 class SankeyLegend extends StatelessWidget {
   const SankeyLegend({
     super.key,
@@ -72,6 +75,8 @@ class SankeyLegend extends StatelessWidget {
   }
 }
 
+/// Derives a deduplicated legend from [nodes] using [SankeyNode.subLabel]
+/// (or [SankeyNode.type] name) as the grouping key.
 List<SankeyLegendItem> deriveLegendItems(List<SankeyNode> nodes) {
   final seen = <String>{};
   final result = <SankeyLegendItem>[];

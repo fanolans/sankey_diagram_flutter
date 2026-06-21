@@ -13,8 +13,21 @@ import 'sankey_controller.dart';
 import 'sankey_legend.dart';
 import 'sankey_tooltip.dart';
 
+/// Convenience alias for [LayoutLink] in tap callbacks.
 typedef SankeyLayoutLink = LayoutLink;
 
+/// An interactive, animated Sankey diagram widget.
+///
+/// Provide [data] with nodes and links. Customise appearance with [style],
+/// react to interaction via [onNodeTap] / [onLinkTap] / [onNodeHover], and
+/// drive highlight state externally via [controller].
+///
+/// ```dart
+/// SankeyDiagram(
+///   data: SankeyData(nodes: myNodes, links: myLinks),
+///   height: 400,
+/// )
+/// ```
 class SankeyDiagram extends StatefulWidget {
   const SankeyDiagram({
     super.key,

@@ -1,8 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 
+/// Semantic role of a node when [SankeyNode.column] is not set explicitly.
+///
+/// [buyer] is placed in the leftmost column, [seller] in the rightmost,
+/// and [neutral] in the middle column.
 enum SankeyNodeType { buyer, seller, neutral }
 
+/// A single node (bar) in the Sankey diagram.
+///
+/// Each node must have a unique [id]. Use [column] to place nodes in a
+/// specific column, or rely on [type] for the default 3-column layout.
 @immutable
 class SankeyNode {
   const SankeyNode({

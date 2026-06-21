@@ -2,6 +2,9 @@ import 'package:flutter/painting.dart';
 
 import '../models/sankey_node.dart';
 
+/// Computed layout geometry for a single [SankeyNode].
+///
+/// [rect] is in canvas coordinates. [value] is the summed flow through the node.
 class LayoutNode {
   const LayoutNode({
     required this.node,

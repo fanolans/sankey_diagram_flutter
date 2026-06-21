@@ -1,8 +1,10 @@
 import 'package:flutter/painting.dart';
 
+/// Utility methods for manipulating [Color] values in Sankey diagrams.
 class ColorUtils {
   const ColorUtils._();
 
+  /// Returns [color] darkened by [amount] (0.0–1.0) in HSL lightness.
   static Color darken(Color color, double amount) {
     final hsl = HSLColor.fromColor(color);
     return hsl
@@ -10,6 +12,7 @@ class ColorUtils {
         .toColor();
   }
 
+  /// Returns [color] lightened by [amount] (0.0–1.0) in HSL lightness.
   static Color lighten(Color color, double amount) {
     final hsl = HSLColor.fromColor(color);
     return hsl
@@ -17,6 +20,7 @@ class ColorUtils {
         .toColor();
   }
 
+  /// Returns [color] with HSL saturation clamped to [saturation] (0.0–1.0).
   static Color withSaturation(Color color, double saturation) {
     final hsl = HSLColor.fromColor(color);
     return hsl.withSaturation(saturation.clamp(0.0, 1.0)).toColor();

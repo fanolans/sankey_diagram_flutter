@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 
-enum SortOrder { byValue, byLabel, none }
+/// Controls the order in which sibling nodes are stacked in each column.
+enum SortOrder {
+  /// Largest value at the top.
+  byValue,
 
+  /// Alphabetical by [SankeyNode.label].
+  byLabel,
+
+  /// Preserves the order nodes appear in [SankeyData.nodes].
+  none,
+}
+
+/// Position of the legend relative to the diagram.
 enum LegendPosition { top, bottom, left, right, hidden }
 
+/// Visual style for the hover tooltip.
 @immutable
 class TooltipStyle {
   const TooltipStyle({
@@ -63,6 +75,9 @@ class TooltipStyle {
       backgroundColor, borderColor, textStyle, padding, borderRadius);
 }
 
+/// Comprehensive visual configuration for [SankeyDiagram].
+///
+/// All properties have sensible defaults — only override what you need.
 @immutable
 class SankeyStyle {
   const SankeyStyle({

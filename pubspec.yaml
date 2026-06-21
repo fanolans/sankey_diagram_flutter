@@ -3,7 +3,7 @@ description: >-
   A highly customizable Sankey diagram widget for Flutter. Visualize broker
   distribution, fund flows, and any flow-based data with smooth bezier curves
   and full interactivity.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/fanolans/sankey_diagram_flutter
 repository: https://github.com/fanolans/sankey_diagram_flutter
 
@@ -35,11 +35,6 @@ screenshots:
     path: doc/screenshots/export_dark.png
   - description: 'Ekspor / Impor (light) — Indonesian export commodities vs destination countries'
     path: doc/screenshots/export_light.png
-  - description: 'APBN 2024 (dark) — 3-column state budget: revenue → spending function → beneficiary'
-    path: doc/screenshots/apbn_dark.png
-  - description: 'APBN 2024 (light) — 3-column state budget: revenue → spending function → beneficiary'
-    path: doc/screenshots/apbn_light.png
-
 environment:
   sdk: ">=3.0.0 <4.0.0"
   flutter: ">=3.10.0"

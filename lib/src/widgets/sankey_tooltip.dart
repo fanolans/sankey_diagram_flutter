@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import '../models/sankey_style.dart';
 import '../utils/value_formatter.dart';
 
+/// Data passed to the tooltip when the user hovers over a node or link.
+///
+/// Use [SankeyTooltipData.node] or [SankeyTooltipData.link] named constructors.
 class SankeyTooltipData {
   const SankeyTooltipData.node({
     required this.label,

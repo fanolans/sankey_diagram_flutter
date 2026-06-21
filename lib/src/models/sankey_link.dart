@@ -1,6 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 
+/// A directed flow (ribbon) between two [SankeyNode]s.
+///
+/// [value] determines the visual thickness of the ribbon.
+/// Optionally override [color] or add a [label] shown in the tooltip.
 @immutable
 class SankeyLink {
   const SankeyLink({

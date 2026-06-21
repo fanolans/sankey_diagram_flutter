@@ -1,3 +1,10 @@
+/// A highly customizable Sankey diagram widget for Flutter.
+///
+/// Import this library and add a [SankeyDiagram] widget to your tree.
+/// Supply [SankeyData] (a list of [SankeyNode]s and [SankeyLink]s) and
+/// optionally a [SankeyStyle] to control appearance.
+library;
+
 export 'src/models/sankey_data.dart';
 export 'src/models/sankey_link.dart';
 export 'src/models/sankey_node.dart';

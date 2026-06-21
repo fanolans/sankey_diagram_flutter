@@ -3,6 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'sankey_link.dart';
 import 'sankey_node.dart';
 
+/// The complete data model for a Sankey diagram: a set of [nodes] and [links].
+///
+/// Pass this to [SankeyDiagram.data]. The class is immutable — call
+/// [copyWith] to produce an updated instance when data changes.
 @immutable
 class SankeyData {
   const SankeyData({
@@ -13,6 +17,7 @@ class SankeyData {
   final List<SankeyNode> nodes;
   final List<SankeyLink> links;
 
+  /// Returns the [SankeyNode] with the given [id], or `null` if not found.
   SankeyNode? nodeById(String id) {
     for (final n in nodes) {
       if (n.id == id) return n;
@@ -20,9 +25,11 @@ class SankeyData {
     return null;
   }
 
+  /// Returns all links whose [SankeyLink.sourceId] matches [nodeId].
   List<SankeyLink> outgoingLinks(String nodeId) =>
       links.where((l) => l.sourceId == nodeId).toList();
 
+  /// Returns all links whose [SankeyLink.targetId] matches [nodeId].
   List<SankeyLink> incomingLinks(String nodeId) =>
       links.where((l) => l.targetId == nodeId).toList();
 

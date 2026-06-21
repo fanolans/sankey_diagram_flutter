@@ -8,6 +8,7 @@ import '../models/sankey_style.dart';
 import 'layout_link.dart';
 import 'layout_node.dart';
 
+/// The result of running [SankeyLayout.compute]: positioned nodes and links.
 class SankeyLayoutResult {
   const SankeyLayoutResult({
     required this.nodes,
@@ -15,15 +16,21 @@ class SankeyLayoutResult {
     required this.numColumns,
   });
 
+  /// Node geometries keyed by [SankeyNode.id].
   final Map<String, LayoutNode> nodes;
+
+  /// Ordered list of ribbon geometries, one per [SankeyLink].
   final List<LayoutLink> links;
 
+  /// Total number of columns in this layout.
   final int numColumns;
 }
 
+/// Stateless layout engine that converts [SankeyData] into pixel geometry.
 class SankeyLayout {
   const SankeyLayout._();
 
+  /// Computes node and link positions for the given [data] and canvas [size].
   static SankeyLayoutResult compute({
     required SankeyData data,
     required Size size,

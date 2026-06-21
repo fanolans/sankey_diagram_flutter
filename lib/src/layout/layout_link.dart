@@ -1,6 +1,10 @@
 import '../models/sankey_link.dart';
 import 'layout_node.dart';
 
+/// Computed layout geometry for a single [SankeyLink] ribbon.
+///
+/// [sourceY] and [targetY] are the vertical midpoints on their respective node
+/// bars. [thickness] is the ribbon height in canvas pixels.
 class LayoutLink {
   const LayoutLink({
     required this.link,
