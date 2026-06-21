@@ -4,6 +4,8 @@ description: >-
   distribution, fund flows, and any flow-based data with smooth bezier curves
   and full interactivity.
 version: 1.0.0
+homepage: https://github.com/fanolans/sankey_diagram_flutter
+repository: https://github.com/fanolans/sankey_diagram_flutter
 
 topics:
   - visualization

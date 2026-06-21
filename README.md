@@ -505,7 +505,7 @@ flutter run
 
 ## Issues and contributions
 
-Found a bug or have a feature request? Please open an issue on the package's repository.
+Found a bug or have a feature request? Please [open an issue](https://github.com/fanolans/sankey_diagram_flutter/issues).
 Pull requests are welcome.
 
 ## License
