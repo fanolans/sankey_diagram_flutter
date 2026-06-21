@@ -93,8 +93,26 @@ class SankeyPainter extends CustomPainter {
     final effectiveNodeId = selectedNodeId ?? hoveredNodeId;
     final hasHighlight = effectiveNodeId != null || hoveredLinkIndex != null;
 
+    // Pass 1: circular (backward) links — drawn behind forward links
     for (var i = 0; i < layout.links.length; i++) {
       final ll = layout.links[i];
+      if (!ll.isCircular) continue;
+      final path = BezierHelper.buildCircularLinkPath(
+        ll,
+        animationValue: animationValue,
+      );
+      final srcColor = ll.link.color ?? ll.sourceNode.node.color;
+      final tgtColor = ll.link.color ?? ll.targetNode.node.color;
+      final opacity = hasHighlight && !_isLinkHighlighted(ll, i, effectiveNodeId)
+          ? style.dimOpacity
+          : style.linkOpacity * 0.7;
+      _paintLink(canvas, path, ll, srcColor, tgtColor, opacity);
+    }
+
+    // Pass 2: forward links
+    for (var i = 0; i < layout.links.length; i++) {
+      final ll = layout.links[i];
+      if (ll.isCircular) continue;
       final path = BezierHelper.buildLinkPath(
         ll,
         animationValue: animationValue,

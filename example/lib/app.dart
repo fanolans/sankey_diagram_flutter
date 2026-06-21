@@ -8,6 +8,7 @@ import 'core/theme/app_theme.dart';
 import 'features/apbn/presentation/apbn_page.dart';
 import 'features/broker/presentation/broker_page.dart';
 import 'features/ecommerce/presentation/ecommerce_page.dart';
+import 'features/energy/presentation/energy_page.dart';
 import 'features/export_import/presentation/export_import_page.dart';
 import 'features/financing/presentation/financing_page.dart';
 import 'features/survey/presentation/survey_page.dart';
@@ -41,7 +42,7 @@ class _HomeScreen extends StatelessWidget {
     final isDark = context.watch<ThemeBloc>().state.isDark;
 
     return DefaultTabController(
-      length: 6,
+      length: 7,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Sankey Diagram Demo'),
@@ -69,6 +70,7 @@ class _HomeScreen extends StatelessWidget {
               Tab(text: 'Survey'),
               Tab(text: 'Ekspor'),
               Tab(text: 'APBN 2024'),
+              Tab(text: 'Auto Layout'),
             ],
           ),
         ),
@@ -80,6 +82,7 @@ class _HomeScreen extends StatelessWidget {
             SurveyPage(),
             ExportImportPage(),
             ApbnPage(),
+            EnergyPage(),
           ],
         ),
       ),

@@ -1,5 +1,26 @@
 import 'package:flutter/material.dart';
 
+/// Controls how columns are assigned when [SankeyStyle.autoLayout] is `true`.
+///
+/// All modes use a BFS pass from source nodes (no incoming links) to assign
+/// an initial column by link depth. The modes differ in how they handle sink
+/// nodes (no outgoing links) and intermediate nodes.
+enum NodeAlignment {
+  /// Source nodes at column 0; column index increases by link depth.
+  left,
+
+  /// Sink nodes at the rightmost column; columns propagate from right to left.
+  right,
+
+  /// Nodes positioned at the midpoint of their forward and reverse depths,
+  /// spreading the graph across the full column range.
+  center,
+
+  /// Like [left] but also pushes sink nodes to the rightmost column.
+  /// Matches the default behaviour of d3-sankey.
+  justify,
+}
+
 /// Controls the order in which sibling nodes are stacked in each column.
 enum SortOrder {
   /// Largest value at the top.
@@ -101,6 +122,9 @@ class SankeyStyle {
     this.backgroundColor = Colors.transparent,
     this.horizontalPadding = 0.0,
     this.verticalPadding = 0.0,
+    this.autoLayout = false,
+    this.layoutIterations = 6,
+    this.nodeAlignment = NodeAlignment.justify,
   });
 
   final double nodeWidth;
@@ -125,6 +149,19 @@ class SankeyStyle {
   final Color backgroundColor;
   final double horizontalPadding;
   final double verticalPadding;
+
+  /// When `true`, column positions are derived automatically from link topology
+  /// using BFS, and node vertical positions are refined with iterative
+  /// relaxation (like d3-sankey). [SankeyNode.column] and [SankeyNode.type]
+  /// are ignored in this mode.
+  final bool autoLayout;
+
+  /// Number of relaxation iterations to run when [autoLayout] is `true`.
+  /// Higher values produce better crossing minimisation at a small CPU cost.
+  final int layoutIterations;
+
+  /// Controls how source/sink nodes are placed during auto-layout.
+  final NodeAlignment nodeAlignment;
 
   TooltipStyle get resolvedTooltipStyle => tooltipStyle ?? const TooltipStyle();
 
@@ -166,6 +203,9 @@ class SankeyStyle {
     Color? backgroundColor,
     double? horizontalPadding,
     double? verticalPadding,
+    bool? autoLayout,
+    int? layoutIterations,
+    NodeAlignment? nodeAlignment,
   }) {
     return SankeyStyle(
       nodeWidth: nodeWidth ?? this.nodeWidth,
@@ -188,6 +228,9 @@ class SankeyStyle {
       backgroundColor: backgroundColor ?? this.backgroundColor,
       horizontalPadding: horizontalPadding ?? this.horizontalPadding,
       verticalPadding: verticalPadding ?? this.verticalPadding,
+      autoLayout: autoLayout ?? this.autoLayout,
+      layoutIterations: layoutIterations ?? this.layoutIterations,
+      nodeAlignment: nodeAlignment ?? this.nodeAlignment,
     );
   }
 
@@ -214,7 +257,10 @@ class SankeyStyle {
           legendPosition == other.legendPosition &&
           backgroundColor == other.backgroundColor &&
           horizontalPadding == other.horizontalPadding &&
-          verticalPadding == other.verticalPadding;
+          verticalPadding == other.verticalPadding &&
+          autoLayout == other.autoLayout &&
+          layoutIterations == other.layoutIterations &&
+          nodeAlignment == other.nodeAlignment;
 
   @override
   int get hashCode => Object.hashAll([
@@ -238,5 +284,8 @@ class SankeyStyle {
         backgroundColor,
         horizontalPadding,
         verticalPadding,
+        autoLayout,
+        layoutIterations,
+        nodeAlignment,
       ]);
 }

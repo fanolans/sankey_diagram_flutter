@@ -9,7 +9,7 @@ export 'src/models/sankey_data.dart';
 export 'src/models/sankey_link.dart';
 export 'src/models/sankey_node.dart';
 export 'src/models/sankey_style.dart'
-    show LegendPosition, SankeyStyle, SortOrder, TooltipStyle;
+    show LegendPosition, NodeAlignment, SankeyStyle, SortOrder, TooltipStyle;
 
 export 'src/layout/layout_link.dart';
 export 'src/layout/layout_node.dart';
